@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container-fluid">
     <div class="jumbotron">
-        <h1>Create New Student</h1>
+        <h1 class='text-center'>Create New Student</h1>
     </div>
     <div class="row">
         <div class="col-md-3"></div>
@@ -25,31 +25,31 @@
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">First Name</label>
                     <input type="text" class="form-control" name='first_name'
-                        placeholder="Your name">
+                        placeholder="Your name" {% if form.first_name.value is not None %}value="{{ form.first_name.value }}"{% endif %}>
                         <div style='color:red;'>{{ form.first_name.errors }}</div>
                 </div>
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Last Name</label>
                     <input type="text" class="form-control" name='last_name'
-                        placeholder="Your surname">
+                        placeholder="Your surname" {% if form.last_name.value is not None %}value="{{ form.last_name.value }}"{% endif %}>
                         <div style='color:red;'>{{ form.last_name.errors }}</div>
                 </div>
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Middle Name</label>
                     <input type="text" class="form-control" name='middle_name'
-                        placeholder="Unique name used to refer to the class">
+                        placeholder="Unique name used to refer to the class" {% if form.middle_name.value is not None %}value="{{ form.middle_name.value }}"{% endif %}>
                         <div style='color:red;'>{{ form.middle_name.errors }}</div>
                 </div>
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Reg No</label>
                     <input type="text" class="form-control" name='reg_no'
-                        >
-                        <div style='color:red;'>{{ form.middle_name.errors }}</div>
+                    {% if form.reg_no.value is not None %}value="{{ form.reg_no.value }}"{% endif %}>
+                        <div style='color:red;'>{{ form.reg_no.errors }}</div>
                 </div>
                 <div class="mb-3">
                     <label for="matric_no" class="form-label">Matric No</label>
                     <input type="text" class="form-control" name='matric_no'
-                        >
+                    {% if form.matric.value %}value="{{ form.matric_no.value }}"{% endif %}>
                         <div style='color:red;'>{{ form.matric_no.errors }}</div>
                 </div>
                 <div>

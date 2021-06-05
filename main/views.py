@@ -34,7 +34,7 @@ class RegisterClass(CreateView):
 
     def get_success_url(self):
         messages.success(self.request, 'New class successfully created')
-        return reverse('main:class-info', kwargs={slug:self.model.slug})
+        return reverse('main:class-info', kwargs={'slug':self.model.slug})
 
 
 class RegisterStudent(FormView):
