@@ -34,7 +34,9 @@ class RegisterClass(CreateView):
 
     def get_success_url(self):
         messages.success(self.request, 'New class successfully created')
-        return reverse('main:class-info', kwargs={'slug':self.model.slug})
+        return reverse('main:class-info', kwargs={'slug': self.object.slug})
+        
+        
 
 
 class RegisterStudent(FormView):
@@ -46,7 +48,8 @@ class RegisterStudent(FormView):
     def form_valid(self, form):
         form.save()
         messages.success(self.request, 'Your data was successfully uploaded')
-        slug = models.Class.objects.get(name=form.cleaned_data.get('student_class')).slug
+        slug = models.Class.objects.get(
+            name=form.cleaned_data.get('student_class')).slug
         return redirect('main:class-info', slug=slug)
 
 
@@ -62,7 +65,8 @@ class ClassInfo(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = forms.StudentForm(initial={'student_class': self.model.objects.get(slug=self.kwargs['slug'])})
+        context['form'] = forms.StudentForm(
+            initial={'student_class': self.model.objects.get(slug=self.kwargs['slug'])})
         return context
 
 
@@ -88,12 +92,13 @@ def download_class_data(request, slug):
                    'Lastname',
                    'Firstname',
                    'Middlename',
-                   'Matric No', ] # Headers if names are required to be discrete.
+                   'Matric No', ]  # Headers if names are required to be discrete.
         headers_name_merged = ['S/N',
-                   'Names',
-                   'Matric No', ] # Headers if names are required to be merged.
+                               'Names',
+                               'Matric No', ]  # Headers if names are required to be merged.
 
-        if request.GET.get("names") == "merged": # Logic to loop through `headers_name_merged` and `members_name_merged`
+        # Logic to loop through `headers_name_merged` and `members_name_merged`
+        if request.GET.get("names") == "merged":
             # to populate the excel sheet.
             for index, row in enumerate(sheet.iter_rows(min_row=1, max_col=3, max_row=len(members_name_merged) + 1)):
                 if index == 0:
@@ -102,9 +107,10 @@ def download_class_data(request, slug):
 
             for row in range(2, len(members_name_merged) + 2):
                 for idx, col in enumerate(headers_name_merged):
-                    sheet.cell(row=row, column=idx+1, value=members_name_merged[row-2][idx])
+                    sheet.cell(row=row, column=idx+1,
+                               value=members_name_merged[row-2][idx])
 
-        else: # alternate logic if names are required to be discrete.
+        else:  # alternate logic if names are required to be discrete.
             for index, row in enumerate(sheet.iter_rows(min_row=1, max_col=5, max_row=len(members) + 1)):
                 if index == 0:
                     for idx, cell in enumerate(row):
@@ -112,7 +118,8 @@ def download_class_data(request, slug):
 
             for row in range(2, student_class.students.all().count() + 2):
                 for idx, col in enumerate(headers):
-                    sheet.cell(row=row, column=idx+1, value=members[row-2][idx])
+                    sheet.cell(row=row, column=idx+1,
+                               value=members[row-2][idx])
 
         # saving the file
         temp_file = BytesIO()
