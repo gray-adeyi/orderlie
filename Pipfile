@@ -7,8 +7,13 @@ name = "pypi"
 django-heroku = "*"
 whitenoise = "*"
 django = "*"
+openpyxl = "*"
+python-docx = "*"
+psycopg2 = "*"
+gunicorn = "*"
 
 [dev-packages]
+autopep8 = "*"
 
 [requires]
 python_version = "3.9"

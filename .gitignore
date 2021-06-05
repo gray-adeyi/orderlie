@@ -3,3 +3,4 @@ envars.zsh
 *.pyc
 db.sqlite3
 media
+staticfiles

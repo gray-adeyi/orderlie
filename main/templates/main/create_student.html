@@ -1,0 +1,65 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="jumbotron">
+        <h1>Create New Student</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div style="color:red;">{{ form.non_field_errors }}</div>
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <div class="form-group">
+                        <label for="level">Student Class</label>
+                        <select class="form-control" id="levle" name="student_class">
+                          {% for x, y in form.fields.student_class.choices %}
+                          <option value="{{ x }}" {% if form.fields.student_class.value == x %} selected{% endif %}>{{ y }}</option>
+                          {% endfor %}
+                        </select>
+                        <div style='color:red;'>{{ form.student_class.errors }}</div>
+                      </div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">First Name</label>
+                    <input type="text" class="form-control" name='first_name'
+                        placeholder="Your name">
+                        <div style='color:red;'>{{ form.first_name.errors }}</div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" name='last_name'
+                        placeholder="Your surname">
+                        <div style='color:red;'>{{ form.last_name.errors }}</div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Middle Name</label>
+                    <input type="text" class="form-control" name='middle_name'
+                        placeholder="Unique name used to refer to the class">
+                        <div style='color:red;'>{{ form.middle_name.errors }}</div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Reg No</label>
+                    <input type="text" class="form-control" name='reg_no'
+                        >
+                        <div style='color:red;'>{{ form.middle_name.errors }}</div>
+                </div>
+                <div class="mb-3">
+                    <label for="matric_no" class="form-label">Matric No</label>
+                    <input type="text" class="form-control" name='matric_no'
+                        >
+                        <div style='color:red;'>{{ form.matric_no.errors }}</div>
+                </div>
+                <div>
+                    <button type="submit" class='btn btn-lg btn-primary'>Upload data</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+
+<br><br><br>
+{% endblock content %}

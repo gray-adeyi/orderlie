@@ -1,0 +1,77 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="jumbotron justify-content-center">
+        <h1>Create New Class</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div style='color:red;'>{{ form.non_field_errors }}</div>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Name</label>
+                    <input type="text" class="form-control" name='name'
+                        placeholder="Unique name used to refer to the class">
+                        <div style='color:red;'>{{ form.name.errors }}</div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Faculty</label>
+                    <input type="text" class="form-control" name='faculty'
+                        >
+                        <div style='color:red;'>{{ form.faculty.errors }}</div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Department</label>
+                    <input type="text" class="form-control" name='department'
+                        >
+                        <div style='color:red;'>{{ form.department.errors }}</div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Governor</label>
+                    <input type="text" class="form-control" name='governor'
+                        >
+                        <div style='color:red;'>{{ form.governor.errors }}</div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Deputy Governor</label>
+                    <input type="text" class="form-control" name='deputy_governor'
+                        >
+                        <div style='color:red;'>{{ form.deputy_governor.errors }}</div>
+                </div>
+                <div class="mb-3">
+                    <div class="form-group">
+                        <label for="level">Level</label>
+                        <select class="form-control" id="level" name="level">
+                          {% for x, y in form.fields.level.choices %}
+                          <option value="{{ x }}" {% if form.fields.level.value == x %} selected{% endif %}>{{ y }}</option>
+                          {% endfor %}
+                        </select>
+                        <div style='color:red;'>{{ form.level.errors }}</div>
+                      </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="form-group">
+                        <label for="level">Session</label>
+                        <select class="form-control" id="levle" name="session">
+                          {% for x, y in form.fields.session.choices %}
+                          <option value="{{ x }}" {% if form.fields.session.value == x %} selected{% endif %}>{{ y }}</option>
+                          {% endfor %}
+                        </select>
+                        <div style='color:red;'>{{ form.session.errors }}</div>
+                      </div>
+                </div>
+                <div>
+                    <button type="submit" class='btn btn-lg btn-primary'>Create</button>
+                </div>
+
+            </form>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+<br><br><br>
+{% endblock content %}

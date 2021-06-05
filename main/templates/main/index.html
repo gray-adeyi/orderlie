@@ -1,0 +1,46 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    Features
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Upload Bio-Data</h5>
+                    <p class="card-text"></p>
+                    <a href="{% url 'main:create-student' %}" class="btn btn-primary">Upload Now.</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    Features
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">View Classes</h5>
+                    <p class="card-text"></p>
+                    <a href="{% url 'main:class-list' %}" class="btn btn-primary">View</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    Features
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Register new Class</h5>
+                    <p class="card-text"></p>
+                    <a href="{% url 'main:create-class' %}" class="btn btn-primary">Register</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+{% endblock content %}
