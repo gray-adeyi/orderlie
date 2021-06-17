@@ -51,7 +51,7 @@ class Student(models.Model):
     matric_no = models.IntegerField(unique=True)
 
     def __str__(self):
-        return self.matric_no
+        return str(self.matric_no)
 
     class Meta:
         ordering = ['matric_no', ]
