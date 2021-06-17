@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container-fluid">
     <div class="jumbotron">
-        <h1 class='text-center'>Create New Student</h1>
+        <h1 class='text-center'>Edit Info for {{ form.first_name.value }} {{ form.last_name.value }}</h1>
     </div>
     <div class="row">
         <div class="col-md-3"></div>
@@ -11,17 +11,6 @@
             <div style="color:red;">{{ form.non_field_errors }}</div>
             <form action="" method="post">
                 {% csrf_token %}
-                <div class="mb-3">
-                    <div class="form-group">
-                        <label for="level">Student Class</label>
-                        <select class="form-control" id="levle" name="student_class">
-                          {% for x, y in form.fields.student_class.choices %}
-                          <option value="{{ x }}" {% if form.fields.student_class.value == x %} selected{% endif %}>{{ y }}</option>
-                          {% endfor %}
-                        </select>
-                        <div style='color:red;'>{{ form.student_class.errors }}</div>
-                      </div>
-                </div>
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">First Name</label>
                     <input type="text" class="form-control" name='first_name'
@@ -53,7 +42,7 @@
                         <div style='color:red;'>{{ form.matric_no.errors }}</div>
                 </div>
                 <div>
-                    <button type="submit" class='btn btn-lg btn-primary'>Upload data</button>
+                    <button type="submit" class='btn btn-lg btn-primary'>Update data</button>
                 </div>
             </form>
         </div>

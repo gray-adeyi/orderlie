@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
-from django.views.generic.edit import CreateView, FormView
+from django.views.generic.edit import CreateView, FormView, DeleteView, UpdateView
 from django.views.generic import DetailView, TemplateView, ListView
 from django.contrib import messages
+from typing import Any, Dict
 from django.views import View
 import tempfile
 from io import BytesIO
@@ -35,8 +36,6 @@ class RegisterClass(CreateView):
     def get_success_url(self):
         messages.success(self.request, 'New class successfully created')
         return reverse('main:class-info', kwargs={'slug': self.object.slug})
-        
-        
 
 
 class RegisterStudent(FormView):
@@ -51,6 +50,32 @@ class RegisterStudent(FormView):
         slug = models.Class.objects.get(
             name=form.cleaned_data.get('student_class')).slug
         return redirect('main:class-info', slug=slug)
+
+
+class EditStudent(UpdateView):
+    model = models.Student
+    template_name = 'main/edit_student.html'
+    fields = ['first_name', 'last_name', 'middle_name', 'reg_no', 'matric_no']
+
+    def get_success_url(self) -> str:
+        student_class = self.get_student_class()
+        return reverse('main:class-info', kwargs={'slug': student_class})
+
+    def get_student_class(self):
+        messages.success(self.request, 'Your data was successfully updated.')
+        return self.object.student_class.slug
+
+
+class DeleteStudent(DeleteView):
+    model = models.Student
+
+    def get_success_url(self) -> str:
+        student_class = self.get_student_class()
+        return reverse('main:class-info', kwargs={'slug': student_class})
+
+    def get_student_class(self):
+        messages.success(self.request, 'Your data was successfully deleted.')
+        return self.object.student_class
 
 
 class ClassList(ListView):

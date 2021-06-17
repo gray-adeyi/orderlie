@@ -67,7 +67,8 @@
             <th scope="col">Firstname</th>
             <th scope="col">Middlename</th>
             <th scope="col">Matric No</th>
-            <th>Reg No</th>
+            <th scope="col">Reg No</th>
+            <th scope="col">Actions</th>
           </tr>
         </thead>
         {% endif %}
@@ -80,6 +81,31 @@
             <td>{{ student.middle_name | upper }}</td>
             <td>{{ student.matric_no }}</td>
             <td>{{ student.reg_no | upper}}</td>
+            <td>
+              <!-- Button trigger modal -->
+<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#student-{{ student.matric_no }}">
+  Update/Delete
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="student-{{ student.matric_no }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Actions</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <a href="{% url 'main:edit-student' pk=student.pk %}" class="btn btn-info">Update Info</a>
+        <a href="{% url 'main:delete-student' pk=student.pk %}" class="btn btn-danger">Delete Info</a>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+            </td>
           </tr>
           {% endfor %}
         </tbody>
