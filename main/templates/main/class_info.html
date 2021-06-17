@@ -13,7 +13,7 @@
     </nav>
   </div>
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-3 mt-5">
       <h3>Add my Bio-Data</h3>
       <div style="color:red;">{{ form.non_field_errors }}</div>
       {% if form %}
@@ -27,7 +27,8 @@
         </div>
         <div class="mb-3">
           <label for="exampleFormControlInput1" class="form-label">First Name</label>
-          <input type="text" class="form-control" name='first_name' placeholder="Your name" {% if form.first_name.value is not None %}value="{{ form.first_name.value }}"{% endif%}>
+          <input type="text" class="form-control" name='first_name' placeholder="Your name" 
+          {% if form.first_name.value is not None %}value="{{ form.first_name.value }}" {% endif %}>
           <div style='color:red;'>{{ form.first_name.errors }}</div>
         </div>
         <div class="mb-3">
@@ -37,8 +38,7 @@
         </div>
         <div class="mb-3">
           <label for="exampleFormControlInput1" class="form-label">Middle Name</label>
-          <input type="text" class="form-control" name='middle_name'
-            placeholder="Your other names">
+          <input type="text" class="form-control" name='middle_name' placeholder="Your other name">
           <div style='color:red;'>{{ form.middle_name.errors }}</div>
         </div>
         <div class="mb-3">
@@ -57,62 +57,66 @@
       </form>
       {% endif %}
     </div>
-    <div class="col-md-6">
-      <table class="table">
-        {% if class.students %}
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Lastname</th>
-            <th scope="col">Firstname</th>
-            <th scope="col">Middlename</th>
-            <th scope="col">Matric No</th>
-            <th scope="col">Reg No</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        {% endif %}
-        <tbody>
-          {% for student in class.students.all %}
-          <tr>
-            <th scope="row">{{ forloop.counter }}</th>
-            <td>{{ student.last_name | upper }}</td>
-            <td>{{ student.first_name | upper }}</td>
-            <td>{{ student.middle_name | upper }}</td>
-            <td>{{ student.matric_no }}</td>
-            <td>{{ student.reg_no | upper}}</td>
-            <td>
-              <!-- Button trigger modal -->
-<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#student-{{ student.matric_no }}">
-  Update/Delete
-</button>
+    <div class="col-md-6 mt-5">
+      <div class="table-responsive">
+        <table class="table align-middle">
+          {% if class.students %}
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Lastname</th>
+              <th scope="col">Firstname</th>
+              <th scope="col">Middlename</th>
+              <th scope="col">Matric No</th>
+              <th scope="col">Reg No</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          {% endif %}
+          <tbody>
+            {% for student in class.students.all %}
+            <tr>
+              <th scope="row">{{ forloop.counter }}</th>
+              <td>{{ student.last_name | upper }}</td>
+              <td>{{ student.first_name | upper }}</td>
+              <td>{{ student.middle_name | upper }}</td>
+              <td>{{ student.matric_no }}</td>
+              <td>{{ student.reg_no | upper}}</td>
+              <td>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                  data-bs-target="#student-{{ student.matric_no }}">
+                  Update/Delete
+                </button>
 
-<!-- Modal -->
-<div class="modal fade" id="student-{{ student.matric_no }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Actions</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <a href="{% url 'main:edit-student' pk=student.pk %}" class="btn btn-info">Update Info</a>
-        <a href="{% url 'main:delete-student' pk=student.pk %}" class="btn btn-danger">Delete Info</a>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <!-- Modal -->
+                <div class="modal fade" id="student-{{ student.matric_no }}" tabindex="-1"
+                  aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Actions</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <a href="{% url 'main:edit-student' pk=student.pk %}" class="btn btn-info">Update Info</a>
+                        <a href="{% url 'main:delete-student' pk=student.pk %}" class="btn btn-danger">Delete Info</a>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
     </div>
-  </div>
-</div>
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
 
-    <div class="col-md-3">
+    <div class="col-md-3 mt-5">
       <div class="card">
         <div class="card-header">
           {{ class.get_level_display }}
@@ -120,17 +124,17 @@
         <div class="card-body">
           <h5 class="card-title">{{ class.name }}</h5>
           <p class="card-text">
-            <p>Governor: {{ class.governor }}</p>
-            <p>Deputy Governor: {{ class.deputy_governor }}</p>
-            <p>Member{{ class.students.all.count | pluralize }} Count: {{ class.students.all.count }}</p>
-            <p><a href="{% url 'main:download-data' slug=class.slug %}?format=xlsx" target="_blank"
-                class="btn btn-success">Download class data as .xlsx [Excel Sheet]</a></p>
-            <p><a href="{% url 'main:download-data' slug=class.slug %}?format=xlsx&names=merged" target="_blank"
-                class="btn btn-success">Download class data (Names Merged) as .xlsx [Excel Sheet]</a></p>
-            <p><a href="{% url 'main:download-data' slug=class.slug %}?format=docx" target="_blank"
-                class="btn btn-success">Download class data as .docx [Word Document]</a></p>
-            <p><a href="{% url 'main:download-data' slug=class.slug %}?format=docx&names=merged" target="_blank"
-                class="btn btn-success">Download class data (Names Merged) as .docx [Word Document]</a></p>
+          <p>Governor: {{ class.governor }}</p>
+          <p>Deputy Governor: {{ class.deputy_governor }}</p>
+          <p>Member{{ class.students.all.count | pluralize }} Count: {{ class.students.all.count }}</p>
+          <p><a href="{% url 'main:download-data' slug=class.slug %}?format=xlsx" target="_blank"
+              class="btn btn-success">Download class data as .xlsx [Excel Sheet]</a></p>
+          <p><a href="{% url 'main:download-data' slug=class.slug %}?format=xlsx&names=merged" target="_blank"
+              class="btn btn-success">Download class data (Names Merged) as .xlsx [Excel Sheet]</a></p>
+          <p><a href="{% url 'main:download-data' slug=class.slug %}?format=docx" target="_blank"
+              class="btn btn-success">Download class data as .docx [Word Document]</a></p>
+          <p><a href="{% url 'main:download-data' slug=class.slug %}?format=docx&names=merged" target="_blank"
+              class="btn btn-success">Download class data (Names Merged) as .docx [Word Document]</a></p>
           </p>
 
         </div>
