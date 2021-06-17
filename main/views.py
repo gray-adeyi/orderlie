@@ -68,7 +68,7 @@ class EditStudent(UpdateView):
 
 class DeleteStudent(DeleteView):
     model = models.Student
-    template_name = 'main/confirm-student-delete.html'
+    template_name = 'main/confirm_student_delete.html'
 
     def get_success_url(self) -> str:
         student_class = self.get_student_class()
