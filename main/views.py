@@ -68,6 +68,7 @@ class EditStudent(UpdateView):
 
 class DeleteStudent(DeleteView):
     model = models.Student
+    template_name = 'main/confirm-student-delete.html'
 
     def get_success_url(self) -> str:
         student_class = self.get_student_class()
@@ -75,7 +76,12 @@ class DeleteStudent(DeleteView):
 
     def get_student_class(self):
         messages.success(self.request, 'Your data was successfully deleted.')
-        return self.object.student_class
+        return self.object.student_class.slug
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context['student'] = self.object
+        return context
 
 
 class ClassList(ListView):

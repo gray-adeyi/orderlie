@@ -1,0 +1,24 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="jumbotron justify-content-center">
+        <h1 class='text-center'>Delete info for {{ student.first_name }}</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <form method="post">
+                {% csrf_token %}
+                <div>
+                    <input type="hidden" name="post" value="yes">
+                    <input type="submit" value="Yes, I'm sure." class="btn btn-lg btn-danger">
+                    <a href="{% url 'main:class-info' slug=student.student_class.slug %}" class="btn btn-lg btn-primary">No, Take me back.</a>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+<br><br><br>
+{% endblock content %}
