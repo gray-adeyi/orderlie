@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+from re import T
 import django_heroku
 from dotenv import load_dotenv
 
@@ -30,7 +31,7 @@ SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True if os.environ.get("DEBUG") == "1" else False
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["*"]  # TODO: Update allowed hosts
 
 
 # Application definition
@@ -43,12 +44,14 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "corsheaders",
     "drf_yasg",
     "main",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -158,6 +161,7 @@ LOGGING = {
 }
 
 API_VERSION = "v1"
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())

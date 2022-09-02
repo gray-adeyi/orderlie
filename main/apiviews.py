@@ -8,7 +8,7 @@ from rest_framework.mixins import (
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import action
 from .serializers import ClassSerializer, StudentSerializer
-from .models import Class
+from .models import Class, Student
 from .views import download_class_data as downloader
 
 
@@ -38,3 +38,4 @@ class StudentViewSet(
     GenericViewSet,
 ):
     serializer_class = StudentSerializer
+    queryset = Student.objects.all()
