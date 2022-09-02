@@ -5,3 +5,4 @@ envars.sh
 db.sqlite3
 media
 staticfiles
+.env

@@ -127,13 +127,13 @@
           <p>Governor: {{ class.governor }}</p>
           <p>Deputy Governor: {{ class.deputy_governor }}</p>
           <p>Member{{ class.students.all.count | pluralize }} Count: {{ class.students.all.count }}</p>
-          <p><a href="{% url 'main:download-data' slug=class.slug %}?format=xlsx" target="_blank"
+          <p><a href="{% url 'main:download-data' slug=class.slug %}?file-format=xlsx" target="_blank"
               class="btn btn-success">Download class data as .xlsx [Excel Sheet]</a></p>
-          <p><a href="{% url 'main:download-data' slug=class.slug %}?format=xlsx&names=merged" target="_blank"
+          <p><a href="{% url 'main:download-data' slug=class.slug %}?file-format=xlsx&names=merged" target="_blank"
               class="btn btn-success">Download class data (Names Merged) as .xlsx [Excel Sheet]</a></p>
-          <p><a href="{% url 'main:download-data' slug=class.slug %}?format=docx" target="_blank"
+          <p><a href="{% url 'main:download-data' slug=class.slug %}?file-format=docx" target="_blank"
               class="btn btn-success">Download class data as .docx [Word Document]</a></p>
-          <p><a href="{% url 'main:download-data' slug=class.slug %}?format=docx&names=merged" target="_blank"
+          <p><a href="{% url 'main:download-data' slug=class.slug %}?file-format=docx&names=merged" target="_blank"
               class="btn btn-success">Download class data (Names Merged) as .docx [Word Document]</a></p>
           </p>
 

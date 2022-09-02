@@ -14,9 +14,33 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="Orderlie API",
+        default_version="v1",
+        description="A modern approach to collecting class data",
+        terms_of_service="",
+        contact=openapi.Contact(email="coyotedevmail@gmail.com"),
+    )
+)
+
+v1_endpoints = [
+    path("", include("main.apiurls")),
+    path(
+        "doc/",
+        schema_view.with_ui("swagger", cache_timeout=0),
+        name="schema-swagger-ui",
+    ),
+    path("redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
+]
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('main.urls')),
+    path("admin/", admin.site.urls),
+    re_path(r"^api/(?P<version>(v1))/", include(v1_endpoints)),
+    path("", include("main.urls")),
 ]
