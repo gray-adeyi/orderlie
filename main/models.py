@@ -32,7 +32,10 @@ class Class(models.Model):
         max_length=128, help_text="the name of the class you're trying to create"
     )
     slug = models.UUIDField(
-        default=uuid4, help_text="external id used to identify each class", unique=True
+        default=uuid4,
+        help_text="external id used to identify each class",
+        unique=True,
+        blank=True,
     )
     faculty = models.CharField(
         max_length=200, help_text="the faculty the class belongs to"
