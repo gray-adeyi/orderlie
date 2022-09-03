@@ -1,3 +1,4 @@
+from tabnanny import verbose
 from .models import Class, Student
 from rest_framework import serializers
 from django.urls import reverse
@@ -79,3 +80,22 @@ class ClassSerializer(serializers.HyperlinkedModelSerializer):
             "session",
             "students",
         ]
+
+
+class DownloadQuerySerializer(serializers.Serializer):
+    FORMAT = (
+        ("json", "json"),
+        ("api", "api"),
+    )
+    FILE_FORMAT = (
+        ("xlsx", "xlsx"),
+        ("docx", "docx"),
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields.update(
+            {"file-format": serializers.ChoiceField(choices=self.FILE_FORMAT)}
+        )
+
+    format = serializers.ChoiceField(choices=FORMAT, required=False)

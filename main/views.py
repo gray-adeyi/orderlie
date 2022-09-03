@@ -148,7 +148,7 @@ def download_class_data(request, slug):
         ]  # Headers if names are required to be merged.
 
         # Logic to loop through `headers_name_merged` and `members_name_merged`
-        if request.query_param.get("names") == "merged":
+        if request.query_params.get("names") == "merged":
             # to populate the excel sheet.
             for index, row in enumerate(
                 sheet.iter_rows(
@@ -198,7 +198,7 @@ def download_class_data(request, slug):
         p = doc.add_paragraph(f"Session: {student_class.governor}")
         p = doc.add_paragraph(f"Session: {student_class.deputy_governor}")
 
-        if request.query_param.get("names") == "merged":
+        if request.query_params.get("names") == "merged":
             table = doc.add_table(rows=1, cols=3)
             hdr_cells = table.rows[0].cells
             hdr_cells[0].text = "S/N"
